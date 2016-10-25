@@ -70,14 +70,13 @@ class GCK_custom_fields_manager {
 
       ?>
       <p class="description description-wide <?php echo esc_attr( $class ) ?>">
-        <?php printf(
-          '<label for="%1$s">%2$s<br /><div class=""><textarea id="%1$s" name="%3$s">%4$s</textarea></div><input type="button" class="button-secondary $1$s" value="Edit HTML Sub-Menu" /></label>',
-          esc_attr( $id ),
-          esc_html( $label ),
-          esc_attr( $name ),
-          esc_textarea( $value )
-        )
-        ?>
+        <label for="<?php echo esc_attr( $id ); ?>">
+          <?php echo esc_html( $label ); ?><br />
+          <div id="<?php echo esc_attr( $id ) . '-wrapper'; ?>" class="hidden">
+            <textarea id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ) ?>"><?php echo esc_textarea( $value ); ?></textarea>
+          </div><!-- .hidden -->
+          <input type="button" class="button-secondary <?php echo esc_attr( $id ); ?>" onclick="jQuery('#<?php echo esc_attr( $id ) . '-wrapper'; ?>').toggleClass('hidden');" value="Edit HTML Sub-Menu" />
+        </label>
       </p>
     <?php
     }
