@@ -45,10 +45,23 @@ function declare_GCK_walker() {
 
 
 add_action('wp_nav_menu_item_custom_fields', 'a_thing', 10, 4);
+
 function a_thing( $id, $item, $depth, $args ) {
+  $key   = sprintf( 'menu-item-%s', $_key );
+  $id    = sprintf( 'edit-%s-%s', $key, $item->ID );
+  $name  = sprintf( '%s[%s]', $key, $item->ID );
+  $value = get_post_meta( $item->ID, $key, true );
+  $class = sprintf( 'field-%s', $_key );
+
   ?>
   <p class="description description-wide <?php echo esc_attr( $class ) ?>">
-    Hello, World!
+    <?php printf(
+      '<label for="%1$s">%2$s<br /><input type="button" id="%1$s" class="button-secondary $1$s" name="%3$s" value="Edit HTML Sub-Menu" /></label>',
+      esc_attr( $id ),
+      esc_html( $label ),
+      esc_attr( $name )
+    )
+    ?>
   </p>
   <?php
 }
