@@ -50,6 +50,8 @@ class GCK_custom_fields_manager {
 
   function init($fields_additive = array()) {
     add_action('wp_nav_menu_item_custom_fields', array( __CLASS__, 'print_fields'), 10, 4);
+    add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
+
 
     if ($fields_additive) {
       foreach ($fields_additive as $key => $value) {
@@ -69,18 +71,48 @@ class GCK_custom_fields_manager {
       ?>
       <p class="description description-wide <?php echo esc_attr( $class ) ?>">
         <?php printf(
-          '<label for="%1$s">%2$s<br /><input type="button" id="%1$s" class="button-secondary $1$s" name="%3$s" value="Edit HTML Sub-Menu" /></label>',
+          '<label for="%1$s">%2$s<br /><div class=""><textarea id="%1$s" name="%3$s">%4$s</textarea></div><input type="button" class="button-secondary $1$s" value="Edit HTML Sub-Menu" /></label>',
           esc_attr( $id ),
           esc_html( $label ),
-          esc_attr( $name )
+          esc_attr( $name ),
+          esc_textarea( $value )
         )
         ?>
       </p>
     <?php
     }
   }
+
+  public static function _save( $menu_id, $menu_item_db_id, $menu_item_args ) {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
+		}
+
+		check_admin_referer( 'update-nav_menu', 'update-nav-menu-nonce' );
+
+		foreach ( self::$fields as $_key => $label ) {
+			$key = sprintf( 'menu-item-%s', $_key );
+
+			// Sanitize
+			if ( ! empty( $_POST[ $key ][ $menu_item_db_id ] ) ) {
+				// Do some checks here...
+				$value = $_POST[ $key ][ $menu_item_db_id ];
+			}
+			else {
+				$value = null;
+			}
+
+			// Update
+			if ( ! is_null( $value ) ) {
+				update_post_meta( $menu_item_db_id, $key, $value );
+			}
+			else {
+				delete_post_meta( $menu_item_db_id, $key );
+			}
+		}
+	}
 }
 
 GCK_custom_fields_manager::init( array(
-  'HTML Sub-Menu' => 'HTML Sub-Menu'
+  'html-sub-menu' => 'HTML Sub-Menu'
 ) );
