@@ -4,9 +4,10 @@ if ( class_exists( 'Walker_Nav_Menu' ) ) {
 
   class GoCheck_Site_Nav_Walker extends Walker_Nav_Menu {
     public function end_el( &$output, $item, $depth = 0, $args = array() ) {
-      if ($item->post_content && $item->post_content !== " "){
+      if ( get_post_meta( $item->ID, 'menu-item-html-sub-menu', true ) ){
+        error_log("There's something in here");
         $output .= '<div class="sub-menu"><div class="container"><div class="row">';
-        $output .= $item->post_content;
+        $output .= get_post_meta( $item->ID, 'menu-item-html-sub-menu', true );
         $output .= '</div></div></div>';
       }
       $output .= "</li>\n";
