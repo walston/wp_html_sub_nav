@@ -6,10 +6,6 @@
   * License: Copyright 2016 Square 1 Parners
   */
 
-/** Dependencies:
-  *   menu-item-custom-fieldsi
-  */
-
 add_action('wp_loaded', 'gck_navigation_init');
 add_action('admin_init', 'gck_navigation_admin_init');
 
