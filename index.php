@@ -9,3 +9,14 @@
 /** Dependencies:
   *   menu-item-custom-fieldsi
   */
+
+add_action('wp_loaded', 'gck_navigation_init');
+add_action('admin_init', 'gck_navigation_admin_init');
+
+function gck_navigation_init() {
+  include_once( dirname( __FILE__ ) . '/theme-functions.php');
+}
+
+function gck_navigation_admin_init() {
+  include_once( dirname( __FILE__ ) . '/admin-functions.php');
+}
