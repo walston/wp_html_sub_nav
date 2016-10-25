@@ -46,12 +46,16 @@ function declare_GCK_walker() {
 
 class GCK_custom_fields_manager {
 
-  private static $fields = array(
-    'HTML Sub-Menu' => 'HTML Sub-Menu'
-  );
+  private static $fields = array();
 
-  function init() {
+  function init($fields_additive = array()) {
     add_action('wp_nav_menu_item_custom_fields', array( __CLASS__, 'print_fields'), 10, 4);
+
+    if ($fields_additive) {
+      foreach ($fields_additive as $key => $value) {
+        self::$fields[$key] = $value;
+      }
+    }
   }
 
   function print_fields( $id, $item, $depth, $args ) {
@@ -77,4 +81,6 @@ class GCK_custom_fields_manager {
   }
 }
 
-GCK_custom_fields_manager::init();
+GCK_custom_fields_manager::init( array(
+  'HTML Sub-Menu' => 'HTML Sub-Menu'
+) );
