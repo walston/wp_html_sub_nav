@@ -26,17 +26,11 @@ class Controller
       $name  = sprintf('%s[%s]', $key, $item->ID);
       $value = get_post_meta($item->ID, $key, true);
       $class = sprintf('field-%s', $_key);
-      ?>
-      <p class="description description-wide <?php echo esc_attr($class) ?>">
-        <label for="<?php echo esc_attr($id); ?>">
-          <?php echo esc_html($label); ?><br />
-          <div id="<?php echo esc_attr($id) . '-wrapper'; ?>" class="hidden">
-            <textarea id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr($name) ?>"><?php echo esc_textarea($value); ?></textarea>
-          </div><!-- .hidden -->
-          <input type="button" class="button-secondary <?php echo esc_attr($id); ?>" onclick="jQuery('#<?php echo esc_attr($id) . '-wrapper'; ?>').toggleClass('hidden');" value="Edit HTML Sub-Menu" />
-        </label>
-      </p>
-      <?php
+
+      $action_name = $key . '-render';
+      error_log(str_repeat('!_LOG', 8));
+      error_log($action_name);
+      do_action($action_name, $label, $key, $id, $name, $value, $class);
     }
   }
 
