@@ -1,6 +1,7 @@
 <?php
+namespace HTML_Sub_Menu;
 
-class HTML_Sub_Menu_Editor_Nav_Walker extends Walker_Nav_Menu_Edit
+class Editor_Nav_Walker extends \Walker_Nav_Menu_Edit
 {
 
   /*

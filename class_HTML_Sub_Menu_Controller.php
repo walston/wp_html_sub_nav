@@ -11,7 +11,6 @@ class Controller
     add_action('wp_nav_menu_item_custom_fields', array(__CLASS__, 'render'), 10, 4);
     add_action('wp_update_nav_menu_item', array(__CLASS__, '_save'), 10, 3);
 
-
     if ($fields_to_add) {
       foreach ($fields_to_add as $key => $value) {
         self::$fields[$key] = $value;
@@ -27,7 +26,6 @@ class Controller
       $name  = sprintf('%s[%s]', $key, $item->ID);
       $value = get_post_meta($item->ID, $key, true);
       $class = sprintf('field-%s', $_key);
-
       ?>
       <p class="description description-wide <?php echo esc_attr($class) ?>">
         <label for="<?php echo esc_attr($id); ?>">
@@ -38,7 +36,7 @@ class Controller
           <input type="button" class="button-secondary <?php echo esc_attr($id); ?>" onclick="jQuery('#<?php echo esc_attr($id) . '-wrapper'; ?>').toggleClass('hidden');" value="Edit HTML Sub-Menu" />
         </label>
       </p>
-    <?php
+      <?php
     }
   }
 
