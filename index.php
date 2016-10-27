@@ -9,6 +9,7 @@ namespace HTML_Sub_Menu;
 
 add_action('wp_loaded', 'HTML_Sub_Menu\theme');
 add_action('admin_init', 'HTML_Sub_Menu\admin');
+add_action('init', 'HTML_Sub_Menu\post_type');
 
 function theme()
 {
@@ -18,4 +19,9 @@ function theme()
 function admin()
 {
   include_once(dirname(__FILE__) . '/admin-functions.php');
+}
+
+function post_type()
+{
+  include_once(dirname(__FILE__) . '/post-type.php');
 }
