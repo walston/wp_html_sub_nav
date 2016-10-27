@@ -7,11 +7,18 @@ class Nav_Walker extends \Walker_Nav_Menu
   {
     $submenuID = get_post_meta($item->ID, 'menu-item-html-sub-menu', true);
 
-    if ($submenuID){
+    if ($submenuID === "0" || $submenuID > 0) {
+      $submenu = array(
+        'content' => get_post($submenuID)->post_content,
+        'status' => get_post($submenuID)->post_status
+      );
+    }
+
+    if ($submenu && $submenu['status'] == 'publish') {
       $output .= '<div class="sub-menu">';
       $output .= '<div class="container">';
       $output .= '<div class="row">';
-      $output .= get_post($submenuID)->post_content;
+      $output .= $submenu['content'];
       $output .= '</div></div></div>';
     }
     parent::end_el($output, $item, $depth, $args);
