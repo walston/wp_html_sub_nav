@@ -56,24 +56,37 @@ add_action('menu-item-html-sub-menu-render', 'html_sub_menu_render', 1, 6);
  */
 function html_sub_menu_render($label, $key, $id, $name, $value, $class)
 {
-  $wrapperId = $id . '-wrapper';
-  add_thickbox();
   ?>
   <p class="description description-wide <?php echo esc_attr($class) ?>">
-    <label for="<?php echo esc_attr($wrapperId); ?>">
+    <label for="<?php echo esc_attr($id); ?>">
       <?php echo esc_html($label); ?><br />
-      <fieldset id="<?php echo esc_attr($wrapperId); ?>" class="hidden">
-        <p>
-          <label for="<?php echo esc_attr($id); ?>">
-            <?php echo esc_html($label); ?>
-            <textarea id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr($name) ?>" class="widefat"><?php echo esc_textarea($value); ?></textarea>
-          </label>
-        </p>
-      </fieldset><!-- .hidden -->
-      <a href="TB_inline?width=600&height=550&inlineId=<?php echo esc_attr($wrapperId); ?>" class="thickbox">
-        <input type="button" class="button-secondary <?php echo esc_attr($id); ?>" value="Edit HTML Sub-Menu" />
-      </a>
+      <select name="<?php echo esc_attr($name); ?>" class="widefat">
+        <option value="">No Submenu</option>
+        <?php echo dropdown_render($value); ?>
+      </select>
     </label>
+    <a href="/wp-admin/post-new.php?post_type=html_sub_menu">Create New Sub-Menu</a>
   </p>
   <?php
+}
+
+function dropdown_render($selected_value)
+{
+  ob_start();
+
+  $html_sub_menus = get_posts(array('post_type' => 'html_sub_menu'));
+
+  foreach ($html_sub_menus as $submenu) {
+    $id = $submenu->ID;
+    $title = $submenu->post_title;
+
+    echo sprintf(
+      '<option value="%1$s"%3$s>%2$s</option>',
+      esc_attr($id),
+      esc_html($title),
+      $selected_value == $id ? ' selected="selected"' : ''
+    );
+  }
+
+  return ob_get_clean();
 }
