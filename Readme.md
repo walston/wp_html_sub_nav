@@ -6,7 +6,6 @@
 * Author: Nathaniel Walston via Square 1 Partners
 * License: Copyright 2016 Square 1 Parners
 
-##objectives
-- Allow direct editing of the site-wide navigation menu
-    - edit `nav_menu_item` post type `content`
-- Attach raw HTML from `nav_menu_item` to front end rendering
+## capabilities
+- WP_Theme facing `Nav_Walker` to wrap `menu-item-html-sub-menu` in bootstrap containers
+- WP_Admin facing `Editor_Nav_Walker` to customize admin UI
