@@ -28,8 +28,6 @@ class Controller
       $class = sprintf('field-%s', $_key);
 
       $action_name = $key . '-render';
-      error_log(str_repeat('!_LOG', 8));
-      error_log($action_name);
       do_action($action_name, $label, $key, $id, $name, $value, $class);
     }
   }

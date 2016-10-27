@@ -2,7 +2,6 @@
 /**
   * Register new Post_Type of submenu
   */
-error_log(str_repeat('X', 80));
 
 register_post_type('html_sub_menu', array(
   'labels' => array(
