@@ -7,9 +7,9 @@
   */
 namespace HTML_Sub_Menu;
 
-add_action('wp_loaded', 'HTML_Sub_Menu\theme');
-add_action('admin_init', 'HTML_Sub_Menu\admin');
-add_action('init', 'HTML_Sub_Menu\post_type');
+add_action('wp_loaded', '\\HTML_Sub_Menu\\theme');
+add_action('admin_init', '\\HTML_Sub_Menu\\admin');
+add_action('init', '\\HTML_Sub_Menu\\post_type');
 
 function theme()
 {
