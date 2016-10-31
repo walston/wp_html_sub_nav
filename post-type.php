@@ -13,6 +13,7 @@ register_post_type('html_sub_menu', array(
   'public' => FALSE,
   'exclude_from_search' => TRUE,
   'show_ui' => TRUE,
+  'menu_icon' => 'dashicons-media-code',
   'supports' => array('title','editor','revisions'),
   'can_export' => TRUE,
 ));
